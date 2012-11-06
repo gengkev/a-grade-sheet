@@ -48,11 +48,9 @@ app.post('/a-grade-sheet-auth', function(req, res) {
         var statusCode = res2.statusCode;
 		var data = '';
         res2.on("data", function(chunk) {
-			console.log("chunk: " + chunk);
             data += chunk;
         });
         res2.on("end", function() {
-			console.log("DONE");
             res.statusCode = statusCode;
             res.end(data);
         });
