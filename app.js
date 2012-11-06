@@ -46,6 +46,7 @@ app.post('/a-grade-sheet-auth', function(req, res) {
        'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
     }, function(res2) {        
         var statusCode = res2.statusCode;
+		var data = '';
         res2.on("data", function(chunk) {
 			console.log("chunk: " + chunk);
             data += chunk;
