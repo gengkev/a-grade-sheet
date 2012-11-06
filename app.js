@@ -45,14 +45,14 @@ app.post('/a-grade-sheet-auth', function(req, res) {
        'method': 'POST',
        'headers': {'Content-Type': 'application/x-www-form-urlencoded'}
     }, function(res2) {        
-        var data = '';
+        var statusCode = res2.statusCode;
         res2.on("data", function(chunk) {
 			console.log("chunk: " + chunk);
             data += chunk;
         });
         res2.on("end", function() {
 			console.log("DONE");
-            res.statusCode = res2.statusCode;
+            res.statusCode = statusCode;
             res.end(data);
         });
     });
