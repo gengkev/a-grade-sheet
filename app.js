@@ -1,8 +1,3 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express'),
     http = require('http'),
     https = require('https'),
@@ -52,9 +47,11 @@ app.post('/a-grade-sheet-auth', function(req, res) {
     }, function(res2) {        
         var data = '';
         res2.on("data", function(chunk) {
+			console.log("chunk: " + chunk);
             data += chunk;
         });
         res2.on("end", function() {
+			console.log("DONE");
             res.statusCode = res2.statusCode;
             res.end(data);
         });
