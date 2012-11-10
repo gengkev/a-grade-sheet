@@ -1,0 +1,36 @@
+{
+	"application": "a-grade-sheet",
+	"version": "0.1",
+	"info": {
+		"name": "Algebra 1 HN",
+		"teachers": [
+			{
+				"name": "Lisa Riddle",
+				"email": "lwriddle@fcps.edu"
+			}
+		],
+		"notes": [
+			{
+				"date": "2011-12-16",
+				"content": "Dear Algebra Honors Parents,\n..."
+			}
+		]
+	},
+	"sheets": [
+		{
+			"info": {
+				"name": "2nd Quarter Gradebook",
+				"lastModified": "2011-12-16",
+				"fields": ["date", "name", "earned", "possible"]
+			},
+			"grades": [
+				["2011-11-14", "Unit 3 Homework", 20, 20],
+				["2011-11-14", "Unit 3 eCart", 4, 4],
+				["2011-11-14", "Unit 3 Test", 45.5, 44],
+				["2011-11-22", "5.1-5.4 Quiz", 14.5, 14],
+				["2011-12-06", "Unit 4 Homework", 18, 18],
+				["2011-12-07", "Unit 4 Test", 42.5, 41]
+			]
+		}
+	]
+}

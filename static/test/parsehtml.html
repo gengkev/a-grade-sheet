@@ -1,0 +1,10 @@
+<!doctype html>
+<script>
+function go() {
+	var div = document.createElement("div");
+	div.innerHTML = document.querySelector("textarea").value;
+	console.log(div);
+}
+</script>
+<textarea></textarea>
+<button onclick="go()">go</button>

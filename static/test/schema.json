@@ -1,0 +1,81 @@
+{
+	"name": "Course",
+	"type": "object",
+	"properties": {
+		"application": {
+			"type": "string",
+			"required": true,
+			"enum": ["a-grade-sheet"]
+		},
+		"version": {
+			"type": "string",
+			"required": true,
+			"enum": ["0.1"]
+		},
+		"info": {
+			"type": "object",
+			"required": true,
+			"properties": {
+				"name": { "type": "string", "required": true },
+				"description": { "type": "string" },
+				"teachers": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"items": {
+							"name": { "type": "string" },
+							"email": { "type": "string", "format": "email" }
+						}
+					}
+				},
+				"notes": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"date": {
+								"type": "string",
+								"format": "date"
+							},
+							"content": { "type": "string" }
+						}
+					}
+				},
+				"type": { "type": "string" }
+			}
+		},
+		"sheets": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"properties": {
+					"info": {
+						"type": "object",
+						"properties": {
+							"name": { "type": "string", "required": true },
+							"lastModified": {
+								"type": "string",
+								"format": "date"
+							},
+							"fields": {
+								"type": "array",
+								"required": true,
+								"items": {
+									"type: "string",
+									"enum": ["date", "name", "earned", "possible", "weight", "notes"]
+								}
+							}
+						}
+					},
+					"grades": {
+						"type": "array",
+						"items": {
+							"type": "array",
+							"items": { "type": ["string", "number", "null"] }
+						}
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,49 @@
+{
+	"application": "a-grade-sheet",
+	"version": "0.1",
+	"info": {
+		"name": "English 7 AA",
+		"teachers": [
+			{
+				"name": "Leigh Toweson",
+				"email": "LCToweson@fcps.edu"
+			}
+		],
+		"notes": [
+			{
+				"date": "2011-11-08",
+				"content": "Dear Parent(s)/Guardian(s),\n..."
+			}
+		]
+	},
+	"sheets": [
+		{
+			"info": {
+				"name": "1st Quarter Gradebook",
+				"lastModified": "2011-11-08",
+				"fields": ["name", "earned", "possible", "notes"]
+			},
+			"grades": [
+				["Summer Reading Assignment", 10, 10, null],
+				["\"Where are you from?\" Poem", 10, 10, null],
+				["Character Traits Quiz", 18, 18, null],
+				["Award-winning book assignment", 30, 30, null],
+				["Cat/Dog story Plot Test", 23, 24, "All students were given the..."],
+				["Extra Credit", null, 0, "Students were given the opportunity..."]
+			]
+		},
+		{
+			"info": {
+				"name": "2nd Quarter Gradebook",
+				"lastModified": "2011-12-02",
+				"fields": ["name", "earned", "possible", "notes"]
+			],
+			"grades": [
+				["Unit 1 Elements of Fiction eCart Test", 21, 23, "All students have..."],
+				["Seedfolks Test", 23, 25, "All students were allowed..."],
+				["Personal Narrative", null, 30, "This assignment is currently..."],
+				["Visual Metaphor", null, 5, "This assignment is currently..."]
+			]
+		}
+	]
+}
