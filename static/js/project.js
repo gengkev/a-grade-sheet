@@ -43,9 +43,7 @@ function MainCtrl($scope, $location, $window, Database) {
 	};
 	
 	$scope.$on('pageLoad', function() {
-		var pageLoadTime = (performance ? performance.now() : Date.now() - pageLoadStart);
-		console.log("time to finish load:", pageLoadTime);
-		
+		console.log("time to finish load:", Date.now() - pageLoadStart);
 		
 		$scope.pageLoaded = true;
 		$scope.logged_in = Database.logged_in;

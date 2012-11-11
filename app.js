@@ -18,10 +18,15 @@ app.configure(function(){
 app.configure('production', function() {
 	app.use(function(req, res, next) {
 		res.header('Strict-Transport-Security', 'max-age=100000');
+		res.header('X-UA-Compatible', 'IE=edge,chrome=1');
+		res.header('Content-Security-Policy', 'default-src \'self\' \'unsafe-inline\' https:');
+		res.header('X-Content-Security-Policy', 'default-src \'self\' \'unsafe-inline\' https:');
+		res.header('X-WebKit-CSP', 'default-src \'self\' \'unsafe-inline\' https:');
 		if (!req.secure) {
 			res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
+		} else {
+			next();
 		}
-		next();
 	});
 });
 app.configure(function() {
