@@ -70,6 +70,7 @@ function addScripts(urls, callback) {
 			s.onload = waiter.get();
 			s.onerror = function() {
 				alert("Loading failed!");
+				location.reload();
 			};
 			s.setAttribute("async", "async");
 			s.setAttribute("src", url);

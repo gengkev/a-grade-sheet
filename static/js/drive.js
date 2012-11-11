@@ -187,7 +187,12 @@ angular.module('drivedb', [])
 				// but that might as well break at any time because using that here isn't documented bleh
 				setTimeout(function() {
 					var params = {'client_id': CLIENT_ID, 'scope': SCOPES, 'immediate': !force};
-					if (force) params.response_type = 'code';
+					if (force) {
+						params.response_type = 'code';
+						
+						// don't actually need, but otherwise we get a prompt on opening files from Drive
+						params.access_type = 'offline';
+					}
 					$window.gapi.auth.authorize(params, function(authResult) {
 						if (authResult && !authResult.error) {
 							if (force) {
