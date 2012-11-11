@@ -107,7 +107,7 @@ addScripts([
 
 window.addEventListener("load", function() {
 	// initialize Google Analytics: fire-and-forget
-	var _gaq = [['_setAccount', 'UA-35038306-2'], ['_trackPageview']];
+	var _gaq = [['_setAccount', 'UA-35038306-3'], ['_trackPageview']];
 	addScripts('https://ssl.google-analytics.com/ga.js');
 });
 
