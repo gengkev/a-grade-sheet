@@ -7,32 +7,36 @@ var express = require('express'),
 var app = express();
 
 app.configure(function(){
-    app.set('port', process.env.PORT || 6060);
-    app.set('views', __dirname + '/views');
-    // app.set('view engine', 'jade');
-    app.use(express.favicon());
-    app.use(express.logger('dev'));
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(express.static(path.join(__dirname, 'public')));
+	app.set('port', process.env.PORT || 6060);
+	app.set('views', __dirname + '/views');
+	
+	app.use(express.favicon());
+	app.use(express.logger('dev'));
+	app.use(express.compress());
+});
+app.configure('production', function() {
+	console.log("a");
+	app.use(function(req, res) {
+		res.setHeader('Strict-Transport-Security', 'max-age=3600');
+		if (!req.secure) {
+			res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
+		}
+	});
+});
+app.configure(function() {
+	app.use(express.bodyParser());
+	app.use(express.methodOverride());
+	app.use(app.router);
+	app.use(express.static(__dirname + '/static'));
+	app.use(function(req, res) {
+		res.sendfile('static/index.html');
+	});
 });
 
 app.configure('development', function(){
     app.use(express.errorHandler());
 });
-
-app.get('/', function(req, res) {
-    res.render('index.ejs');
-});
-app.options('/a-grade-sheet-auth', function(req, res) {
-   res.setHeader("Access-Control-Allow-Origin", "*");
-   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-   res.end();
-});
-app.post('/a-grade-sheet-auth', function(req, res) {
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    
+app.post('/a-grade-sheet-auth', function(req, res) {    
     var code = req.body.code;
     if (!code) {
         res.statusCode = 400;
@@ -64,7 +68,6 @@ app.post('/a-grade-sheet-auth', function(req, res) {
     });
     req2.end(bla);
 });
-
 http.createServer(app).listen(app.get('port'), function(){
     console.log("Express server listening on port " + app.get('port'));
 });

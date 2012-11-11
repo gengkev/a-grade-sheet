@@ -1,0 +1,34 @@
+<article>
+<h1>Settings</h1>
+
+<section class="well">
+<h3>Authorization details</h3>
+<dl>
+<dt>Logged in</dt><dd>{{logged_in}}</dd>
+<dt>Auth token</dt><dd>{{getAccessToken()}}</dd>
+</dl>
+
+<button class="btn btn-primary" ng-click="authorize()" ng-hide="logged_in">Authorize Google Drive</button>
+<button class="btn btn-danger" ng-click="revokeAccess()" ng-show="logged_in">Deauthorize Google Drive</button>
+</section>
+
+<section class="well">
+<h3>Special thanks to</h3>
+<ul> 
+<li><a href="http://angularjs.org/" target="_blank">AngularJS</a></li>
+<li><a href="https://developers.google.com/drive/" target="_blank">Google Drive API</a></li>
+<li><a href="https://heroku.com/" target="_blank">Heroku</a></li>
+<li><a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a><ul>
+	<li><a href="http://glyphicons.com/" target="_blank">Glyphicons</a></li>
+</ul></li>
+</ul>
+</section>
+
+<section class="well">
+<p>
+Created by <a href="https://plus.google.com/112830849462286532136/about" target="_blank">+Kevin Geng</a>, 
+because sometimes, he just has too much time on his hands.
+</p>
+</section>
+
+</article>

@@ -1,0 +1,28 @@
+<article>
+<div class="hero-unit">
+<h1>A Grade Sheet</h1>
+<br />
+
+<p><b>
+<span ng-show="logged_in">
+To get started, open one of your courses on the left, or 
+<a href="" ng-click="newCourse()">add a new one</a>.
+</span>
+<span ng-hide="logged_in">
+Hey, could you please
+<a href="" ng-click="authorize()">log into Google Drive</a>
+for us? We use it to store your grade sheets.
+</span>
+</b></p>
+
+<p>
+A Grade Sheet is an <b>online version</b> of those paper gradesheets we get from our teachers.
+It stores them in your <b>Google Drive</b>, so you can view them anywhere you're signed into it. 
+It <b>imports</b> those progress reports your teachers send biweekly, so you don't have to type a thing.
+And it even helps you <b>graph your grades</b>, to help you stay on top of them.
+</p>
+<p>
+Or at least, it eventually will.
+</p>
+</div>
+</article>
