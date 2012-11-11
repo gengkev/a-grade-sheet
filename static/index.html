@@ -7,16 +7,16 @@
 	<title>A Grade Sheet</title>
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
 	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https: localhost:5000"/>
-	<meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https: localhost:5000"/>
-	<meta http-equiv="X-WebKit-CSP" content="default-src 'self' 'unsafe-inline' https: localhost:5000"/>
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:"/>
+	<meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:"/>
+	<meta http-equiv="X-WebKit-CSP" content="default-src 'self' 'unsafe-inline' https:"/>
 	<meta name="author" content="Kevin Geng"/>
 	<meta name="description" content="An online grade sheet editing and viewing application"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-	<link rel="stylesheet" type="text/css" href="css/bootstrap-responsive.min.css"/>
-	<link rel="stylesheet" type="text/css" href="css/index.css"/>
-	<script src="js/index.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap-responsive.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/css/index.css"/>
+	<script src="/js/index.js" async></script>
 	<!--[if lt IE 9]>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6/html5shiv.min.js"></script>
 	<![endif]-->
@@ -24,18 +24,18 @@
 <body ng-controller="MainCtrl">
 	<div class="navbar">
 		<div class="navbar-inner">			
-			<a class="brand" href="#/">
+			<a class="brand" href="/">
 				<span id="a">A</span>
 				<span class="hidden-phone">Grade Sheet</span>
 			</a>
 			<ul class="nav">
-				<li ng-class="{active: onPage('')}"><a href="#/">
+				<li ng-class="{active: onPage('')}"><a href="/">
 					<i class="icon-home visible-phone"></i>
 					<span class="hidden-phone">Home</span>
 				</a></li>
 			</ul>
 			<ul class="nav pull-right">
-				<li ng-class="{active: onPage('settings')}"><a href="#/settings">
+				<li ng-class="{active: onPage('settings')}"><a href="/settings">
 					<i class="icon-wrench visible-phone"></i>
 					<span class="hidden-phone">Settings</span>
 				</a></li>
@@ -53,10 +53,10 @@
 					
 					<!-- list gradesheets -->
 					<li ng-repeat="course in courses" ng-class="{active: $index == active}">
-						<a href="#/view/{{course.id}}" title="{{course.description}}" ng-bind="course.name || 'Untitled'"></a>
+						<a href="/view/{{course.id}}" title="{{course.description}}" ng-bind="course.name || 'Untitled'"></a>
 						<ul class="nav nav-list">
 							<li ng-repeat="sheet in course.sheets">
-								<a href="#/view/{{course.id}}/{{sheet.id}}" title="{{sheet.description}}" ng-bind="sheet.name || 'Untitled'"></a>
+								<a href="/view/{{course.id}}/{{sheet.id}}" title="{{sheet.description}}" ng-bind="sheet.name || 'Untitled'"></a>
 							</li>
 						</ul>
 					</li>

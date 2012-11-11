@@ -15,12 +15,12 @@ app.configure(function(){
 	app.use(express.compress());
 });
 app.configure('production', function() {
-	console.log("a");
 	app.use(function(req, res) {
 		res.setHeader('Strict-Transport-Security', 'max-age=3600');
-		if (!req.secure) {
-			res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
-		}
+		console.log(req.originalUrl);
+		//if (!req.secure) {
+		//	res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
+		//}
 	});
 });
 app.configure(function() {
@@ -28,9 +28,18 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(app.router);
 	app.use(express.static(__dirname + '/static'));
-	app.use(function(req, res) {
-		res.sendfile('static/index.html');
-	});
+});
+app.get('/', function(req, res) {
+	res.sendfile('static/index.html');
+});
+app.get('/settings', function(req, res) {
+	res.sendfile('static/index.html');
+});
+app.get('/view/*', function(req, res) {
+	res.sendfile('static/index.html');
+});
+app.get('/loading', function(req, res) {
+	res.sendfile('static/index.html');
 });
 
 app.configure('development', function(){

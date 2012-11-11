@@ -4,13 +4,13 @@ window.errorHandler = function(error) {
 
 angular.module('project', ['drivedb'])
 	.config(function($routeProvider, $locationProvider) {
-		$locationProvider.html5Mode(false).hashPrefix("");
+		$locationProvider.html5Mode(true);
 		$routeProvider
-			.when('/', {controller: LandingCtrl, templateUrl: 'landing.html'})
-			.when('/view/:courseId', {controller: ViewCtrl, templateUrl: 'view.html'})
-			.when('/view/:courseId/:sheetId', {controller: ViewCtrl, templateUrl: 'view.html'})
-			.when('/settings', {controller: SettingsCtrl, templateUrl: 'settings.html'})
-			.when('/loading/:loc', {controller: LoadingCtrl, templateUrl: 'blank.html'})
+			.when('/', {controller: LandingCtrl, templateUrl: '/landing.html'})
+			.when('/view/:courseId', {controller: ViewCtrl, templateUrl: '/view.html'})
+			.when('/view/:courseId/:sheetId', {controller: ViewCtrl, templateUrl: '/view.html'})
+			.when('/settings', {controller: SettingsCtrl, templateUrl: '/settings.html'})
+			.when('/loading/:loc', {controller: LoadingCtrl, templateUrl: '/blank.html'})
 			.otherwise({redirectTo: '/'});
 	});
 
@@ -43,7 +43,7 @@ function MainCtrl($scope, $location, $window, Database) {
 	};
 	
 	$scope.$on('pageLoad', function() {
-		var pageLoadTime = (performance ? performance.now : Date.now() - pageLoadStart);
+		var pageLoadTime = (performance ? performance.now() : Date.now() - pageLoadStart);
 		console.log("time to finish load:", pageLoadTime);
 		
 		

@@ -91,9 +91,9 @@ addScripts([
 	'https://ajax.googleapis.com/ajax/libs/angularjs/1.0.2/angular.min.js'
 ], function() {
 	addScripts([
-		'js/project.js',
-		'js/drive.js',
-		'js/igp_import.js'
+		'/js/project.js',
+		'/js/drive.js',
+		'/js/igp_import.js'
 	], loadWaiter.get());
 });
 
