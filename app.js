@@ -16,8 +16,9 @@ app.configure(function(){
 	app.use(express.compress());
 });
 app.configure('production', function() {
+	app.use(express.cache(86400));
 	app.use(function(req, res, next) {
-		res.setHeader('Strict-Transport-Security', 'max-age=3600');
+		res.setHeader('Strict-Transport-Security', 'max-age=86400');
 		if (!req.secure) {
 			res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
 		}
@@ -29,9 +30,6 @@ app.configure(function() {
 	app.use(express.methodOverride());
 	app.use(app.router);
 	app.use(express.static(__dirname + '/static'));
-});
-app.get('/', function(req, res) {
-	res.sendfile('static/index.html');
 });
 app.get('/settings', function(req, res) {
 	res.sendfile('static/index.html');
