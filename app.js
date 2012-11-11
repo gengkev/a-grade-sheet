@@ -16,9 +16,8 @@ app.configure(function(){
 	app.use(express.compress());
 });
 app.configure('production', function() {
-	app.use(express.cache(86400));
 	app.use(function(req, res, next) {
-		res.setHeader('Strict-Transport-Security', 'max-age=86400');
+		res.header('Strict-Transport-Security', 'max-age=100000');
 		if (!req.secure) {
 			res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
 		}
@@ -29,16 +28,16 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
-	app.use(express.static(__dirname + '/static'));
+	app.use(express.static(__dirname + '/static', {maxAge: 1e5}));
 });
 app.get('/settings', function(req, res) {
-	res.sendfile('static/index.html');
+	res.sendfile('static/index.html', {maxAge: 1e5});
 });
 app.get('/view/*', function(req, res) {
-	res.sendfile('static/index.html');
+	res.sendfile('static/index.html', {maxAge: 1e5});
 });
 app.get('/loading', function(req, res) {
-	res.sendfile('static/index.html');
+	res.sendfile('static/index.html', {maxAge: 1e5});
 });
 
 app.configure('development', function(){
