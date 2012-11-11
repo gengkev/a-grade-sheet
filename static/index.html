@@ -18,8 +18,9 @@
 	<![endif]-->
 </head>
 <body ng-controller="MainCtrl">
+	<div class="container">
 	<div class="navbar">
-		<div class="navbar-inner">			
+		<div class="navbar-inner">
 			<a class="brand" href="/">
 				<span id="a">A</span>
 				<span class="hidden-phone">Grade Sheet</span>
@@ -31,6 +32,10 @@
 				</a></li>
 			</ul>
 			<ul class="nav pull-right">
+				<li><a href="http://gengkev.github.com/a-grade-sheet/" target="_blank">
+					<i class="icon-info-sign visible-phone"></i>
+					<span class="hidden-phone">About</span>
+				</a></li>
 				<li ng-class="{active: onPage('settings')}"><a href="/settings">
 					<i class="icon-wrench visible-phone"></i>
 					<span class="hidden-phone">Settings</span>
@@ -39,7 +44,8 @@
 			</ul>
 		</div>
 	</div>
-	<div class="container">
+	
+
 		<div class="row">
 			<!-- Navigation -->
 			<div class="span3">
@@ -61,8 +67,8 @@
 					
 					<!-- show only when logged in -->
 					<li ng-show="logged_in" class="btn-group btn-group-vertical full-width">
-						<button class="btn btn-success full-width" ng-click="newCourse()">+ New Course</button>
-						<button class="btn btn-warning full-width" ng-click="navigate('/import')">Import Grade Sheet</a>
+						<button class="btn btn-info full-width" ng-click="newCourse()">New <span class="hidden-tablet">Course</span></button>
+						<button class="btn btn-success full-width" ng-click="navigate('/import')">Import <span class="hidden-tablet">Grade Sheet</span></a>
 					</li>
 					
 					<!-- show only when logged out -->

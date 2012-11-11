@@ -1,13 +1,3 @@
-#edit-table input {
-	display: block;
-	width: 100%;
-}
-input.input-header {
-	font-size: 36px;
-	font-weight: bold;
-	width: auto;
-	height: auto;
-}
 #overlay {
 	position: fixed;
 	top: 0;
@@ -47,4 +37,13 @@ input.input-header {
 .nav-list .nav-list li a {
 	font-size: 87%;
 	padding-left: 25px;
+}
+
+* {
+	word-wrap: break-word;
+}
+@media (max-width: 767px) {
+	.hero-unit {
+		padding: 30px;
+	}
 }

@@ -20,6 +20,7 @@ function MainCtrl($scope, $location, $window, Database) {
 	$scope.courses = Database.list;
 	
 	$scope.refresh = function() {
+		if ($scope.refreshing) return;
 		$scope.refreshing = true;
 		Database.loadList(); // will emit updatedList
 	};
