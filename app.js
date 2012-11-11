@@ -28,16 +28,16 @@ app.configure(function() {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(app.router);
-	app.use(express.static(__dirname + '/static', {maxAge: 1e5}));
+	app.use(express.static(__dirname + '/static', {maxAge: 1e8}));
 });
 app.get('/settings', function(req, res) {
-	res.sendfile('static/index.html', {maxAge: 1e5});
+	res.sendfile('static/index.html', {maxAge: 1e8});
 });
 app.get('/view/*', function(req, res) {
-	res.sendfile('static/index.html', {maxAge: 1e5});
+	res.sendfile('static/index.html', {maxAge: 1e8});
 });
 app.get('/loading', function(req, res) {
-	res.sendfile('static/index.html', {maxAge: 1e5});
+	res.sendfile('static/index.html', {maxAge: 1e8});
 });
 
 app.configure('development', function(){
