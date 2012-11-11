@@ -1,10 +1,5 @@
 var pageLoadStart = Date.now();
 
-// https redirect, sir.
-if (location.host == 'a-grade-sheet.googlecode.com' && location.protocol != 'https:') {
-	location.protocol = 'https:';
-}
-
 // Pass the number of callbacks you're expecting, and the callback for all of 
 // those callbacks. Then supply waiter.get() where you need a callback.
 //

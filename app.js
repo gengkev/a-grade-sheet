@@ -9,13 +9,14 @@ var app = express();
 app.configure(function(){
 	app.set('port', process.env.PORT || 6060);
 	app.set('views', __dirname + '/views');
+	app.enable('trust proxy');
 	
 	app.use(express.favicon());
 	app.use(express.logger('dev'));
 	app.use(express.compress());
 });
 app.configure('production', function() {
-	app.use(function(req, res) {
+	app.use(function(req, res, next) {
 		res.setHeader('Strict-Transport-Security', 'max-age=3600');
 		console.log(req.protocol);
 		console.log(req.host);
