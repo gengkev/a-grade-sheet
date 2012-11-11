@@ -17,10 +17,12 @@ app.configure(function(){
 app.configure('production', function() {
 	app.use(function(req, res) {
 		res.setHeader('Strict-Transport-Security', 'max-age=3600');
-		console.log(req.originalUrl);
+		console.log(req.protocol);
+		console.log(req.host);
 		//if (!req.secure) {
 		//	res.redirect('https://a-grade-sheet.herokuapp.com' + req.originalUrl);
 		//}
+		next();
 	});
 });
 app.configure(function() {
