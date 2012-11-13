@@ -1,3 +1,11 @@
+* {
+	word-wrap: break-word;
+}
+@media (max-width: 767px) {
+	.hero-unit {
+		padding: 30px;
+	}
+}
 #overlay {
 	position: fixed;
 	top: 0;
@@ -11,9 +19,9 @@
 	padding-top: 10%;
 	-webkit-transition: 1s ease-out;
 	   -moz-transition: 1s ease-out;
-		-ms-transition: 1s ease-out;
-		 -o-transition: 1s ease-out;
-			transition: 1s ease-out;
+	    -ms-transition: 1s ease-out;
+	     -o-transition: 1s ease-out;
+	        transition: 1s ease-out;
 	text-shadow: 0 0 0.2em #000;
 }
 .navbar .brand #a {
@@ -37,13 +45,4 @@
 .nav-list .nav-list li a {
 	font-size: 87%;
 	padding-left: 25px;
-}
-
-* {
-	word-wrap: break-word;
-}
-@media (max-width: 767px) {
-	.hero-unit {
-		padding: 30px;
-	}
 }
