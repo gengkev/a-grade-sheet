@@ -19,33 +19,32 @@
 </head>
 <body ng-controller="MainCtrl">
 	<div class="container">
-	<div class="navbar">
-		<div class="navbar-inner">
-			<a class="brand" href="/">
-				<span id="a">A</span>
-				<span class="hidden-phone">Grade Sheet</span>
-			</a>
-			<ul class="nav">
-				<li ng-class="{active: onPage('')}"><a href="/">
-					<i class="icon-home visible-phone"></i>
-					<span class="hidden-phone">Home</span>
-				</a></li>
-			</ul>
-			<ul class="nav pull-right">
-				<li><a href="http://gengkev.github.com/a-grade-sheet/" target="_blank">
-					<i class="icon-info-sign visible-phone"></i>
-					<span class="hidden-phone">About</span>
-				</a></li>
-				<li ng-class="{active: onPage('settings')}"><a href="/settings">
-					<i class="icon-wrench visible-phone"></i>
-					<span class="hidden-phone">Settings</span>
-				</a></li>
-				<li><a href="" ng-click="refresh()" id="refresh" title="Refresh" ng-bind="refreshing && '...' || '\u27f2'">&#x27f2;</a></li>
-			</ul>
+		<div class="navbar">
+			<div class="navbar-inner">
+				<a class="brand" href="/">
+					<span id="a">A</span>
+					<span class="hidden-phone">Grade Sheet</span>
+				</a>
+				<ul class="nav">
+					<li ng-class="{active: onPage('')}"><a href="/">
+						<i class="icon-home visible-phone"></i>
+						<span class="hidden-phone">Home</span>
+					</a></li>
+				</ul>
+				<ul class="nav pull-right">
+					<li><a href="http://gengkev.github.com/a-grade-sheet/" target="_blank">
+						<i class="icon-info-sign visible-phone"></i>
+						<span class="hidden-phone">About</span>
+					</a></li>
+					<li ng-class="{active: onPage('settings')}"><a href="/settings">
+						<i class="icon-wrench visible-phone"></i>
+						<span class="hidden-phone">Settings</span>
+					</a></li>
+					<li><a href="" ng-click="refresh()" id="refresh" title="Refresh" ng-bind="refreshing && '...' || '\u27f2'">&#x27f2;</a></li>
+				</ul>
+			</div>
 		</div>
-	</div>
-	
-
+		
 		<div class="row">
 			<!-- Navigation -->
 			<div class="span3">
@@ -54,11 +53,11 @@
 					
 					
 					<!-- list gradesheets -->
-					<li ng-repeat="course in courses" ng-class="{active: $index == active}">
-						<a href="/view/{{course.id}}" title="{{course.description}}" ng-bind="course.name || 'Untitled'"></a>
+					<li ng-repeat="course in courses" ng-class="{active: course.id == active}">
+						<a href="/view/{{course.id}}" title="{{course.id}}" ng-bind="course.name || 'Untitled'"></a>
 						<ul class="nav nav-list">
 							<li ng-repeat="sheet in course.sheets">
-								<a href="/view/{{course.id}}/{{sheet.id}}" title="{{sheet.description}}" ng-bind="sheet.name || 'Untitled'"></a>
+								<a href="/view/{{course.id}}/{{$index}}" title="{{$index}}" ng-bind="sheet.name || 'Untitled'"></a>
 							</li>
 						</ul>
 					</li>
@@ -67,8 +66,8 @@
 					
 					<!-- show only when logged in -->
 					<li ng-show="logged_in" class="btn-group btn-group-vertical full-width">
-						<button class="btn btn-info full-width" ng-click="newCourse()">New <span class="hidden-tablet">Course</span></button>
-						<button class="btn btn-success full-width" ng-click="navigate('/import')">Import <span class="hidden-tablet">Grade Sheet</span></a>
+						<button class="btn btn-success full-width" ng-click="newCourse()">New <span class="hidden-tablet">Course</span></button>
+						<button class="btn btn-warning full-width" ng-click="navigate('/import')">Import <span class="hidden-tablet">Grade Sheet</span></a>
 					</li>
 					
 					<!-- show only when logged out -->

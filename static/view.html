@@ -1,9 +1,34 @@
 <article>
-<h1>{{name || 'Untitled'}}</h1>
-<b>ID: {{courseId}}</b><br />
-<b>Description: {{description}}</b><br />
+<!-- Course-level stuff -->
+<h1>{{info.name || 'Untitled'}}</h1>
 
-<br /><br />
+<ul class="nav nav-pills">
+	<li ng-repeat="sheet in sheets" ng-class="{active: $index == currentId}">
+		<a href="/view/{{courseId}}/{{$index}}">{{sheet.info.name}}</a>
+	</li>
+</ul>
+
+<!-- Sheet-level stuff -->
+<table class="table table-hover">
+<tr>
+        <th class="span1">Date</th>
+        <th class="span4">Assignment Name</th>
+        <th class="span1">Points Earned</th>
+        <th class="span1">Points Possible</th>
+        <th class="span1">Total Points Earned</th>
+        <th class="span1">Total Points Possible</th>
+        <th class="span1">Grade</th>
+</tr>
+<tr ng-repeat="row in current.grades">
+        <td>{{row.date || '?'}}</td>
+        <td>{{row.name || '?'}}</td>
+        <td>{{row.earned || '?'}}</td>
+        <td>{{row.possible || '?'}}</td>
+        <td>{{row.totalEarned || '?'}}</td>
+        <td>{{row.totalPossible || '?'}}</td>
+        <td>{{grade(row.earned, row.possible) || '?'}}</td>
+</tr>
+</table>
 
 <button class="btn btn-primary" ng-click="edit()">Edit</button>
 <button class="btn btn-danger" ng-click="remove()">Delete</button>

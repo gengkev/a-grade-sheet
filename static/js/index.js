@@ -69,8 +69,9 @@ function addScripts(urls, callback) {
 			var s = document.createElement("script");
 			s.onload = waiter.get();
 			s.onerror = function() {
-				alert("Loading failed!");
-				location.reload();
+				if (confirm("Loading failed! :(\n\nRetry?")) {
+					location.reload();
+				}
 			};
 			s.setAttribute("async", "async");
 			s.setAttribute("src", url);

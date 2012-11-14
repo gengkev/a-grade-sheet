@@ -7,10 +7,10 @@ angular.module('project', ['drivedb'])
 		$locationProvider.html5Mode(true);
 		$routeProvider
 			.when('/', {controller: LandingCtrl, templateUrl: '/landing.html'})
-			.when('/view/:courseId', {controller: ViewCtrl, templateUrl: '/view.html'})
+			.when('/view/:courseId', {controller: ViewCtrlMain, templateUrl: '/view.html'})
 			.when('/view/:courseId/:sheetId', {controller: ViewCtrl, templateUrl: '/view.html'})
+			.when('/import', {controller: ImportCtrl, templateUrl: '/import.html'})
 			.when('/settings', {controller: SettingsCtrl, templateUrl: '/settings.html'})
-			.when('/loading/:loc', {controller: LoadingCtrl, templateUrl: '/blank.html'})
 			.otherwise({redirectTo: '/'});
 	});
 
@@ -31,13 +31,7 @@ function MainCtrl($scope, $location, $window, Database) {
 		$scope.$digest();
 	});
 	$scope.$on('navChange', function(e, newId) {
-		for (var i = 0; i < $scope.courses.length; i++) {
-			if ($scope.courses[i].id == newId) {
-				$scope.active = i;
-				return;
-			}
-		}
-		$scope.active = null;
+		$scope.active = newId || null;
 	});
 	$scope.onPage = function(page) {
 		return $location.path() == '/' + page;
@@ -87,7 +81,7 @@ function MainCtrl($scope, $location, $window, Database) {
 	
 	$scope.newCourse = function() {
 		var title = prompt("New file title?");
-		Database.newFile(null, title, function(id) {
+		Database.newFile({title: title}, function(id) {
 			if (!id) {
 				alert("Creating new file failed!");
 				return;
@@ -101,6 +95,26 @@ function MainCtrl($scope, $location, $window, Database) {
 }
 function LandingCtrl($scope, $location, Database) {
 	$scope.$emit('navChange');
+}
+function ImportCtrl($scope, $window, $location, Database) {
+	$scope.uploadJsonFile = function() {
+		var fr = new FileReader();
+		fr.onload = function(e) {
+			Database.newFile({file: fr.result}, function(id) {
+				if (!id) {
+					alert("Creating new file failed!");
+					return;
+				}
+				$location.path("/view/" + id);
+			});
+		};
+		fr.onerror = function(e) {
+			console.warn("File read failed", e);
+			alert("File read failed!");
+		};
+		// I'm sorry, AngularJS gods!
+		fr.readAsText(document.getElementById("jsonFile").files[0]);
+	};
 }
 function SettingsCtrl($scope, $window, $http, Database) {
 	$scope.$emit('navChange');
@@ -120,17 +134,25 @@ function SettingsCtrl($scope, $window, $http, Database) {
 	
 	$scope.getAccessToken = function() { return Database.getAccessToken(); };
 }
+function ViewCtrlMain($routeParams, $location) {
+	$location.path('/view/' + $routeParams.courseId + '/0');
+}
 function ViewCtrl($scope, $location, $routeParams, Database) {
 	if (!$scope.pageLoaded) {
-		$location.path('/loading/' + encodeURIComponent($location.path()));
+		$scope.$on('pageLoad', function() {
+			return ViewCtrl($scope, $location, $routeParams, Database);
+		});
 		return;
 	} else if (!$scope.logged_in) {
 		$location.path('/');
 		return;
 	}
+	
 	var courseId = $routeParams.courseId;
 	$scope.courseId = courseId;
 	$scope.$emit('navChange', courseId);
+	
+	$scope.currentId = $routeParams.sheetId;
 	
 	Database.loadFile(courseId, function(result) {
 		if (!result) {
@@ -138,18 +160,23 @@ function ViewCtrl($scope, $location, $routeParams, Database) {
 			$location.path('/');
 			return;
 		}
-		$scope.name = result.info.name;
-		$scope.description = result.info.description;
+		$scope.info = result.info;
 		$scope.sheets = result.sheets;
+		
+		if (!Array.isArray($scope.sheets) || $scope.sheets.length == 0) {
+			// idk?
+			$location.path('/');
+			return;
+		} else if (!$scope.sheets[$scope.currentId]) {
+			// uh oh, redirect to 0
+			$location.path('/view/' + courseId + '/0');
+			return;
+		}
+		
+		$scope.current = $scope.sheets[$scope.currentId];
 	});
-}
-function LoadingCtrl($scope, $location, $window, $routeParams) {
-	if (!$scope.pageLoaded) {
-		$scope.$on('pageLoad', function() {
-			// $location.path doesn't work???
-			$window.location.hash = decodeURIComponent($routeParams.loc);
-		});
-	} else {
-		$location.path(decodeURIComponent($routeParams.loc));
-	}
+	
+	$scope.delete = function() {
+		Database.deleteFile($scope.courseId, $scope.refresh);
+	};
 }

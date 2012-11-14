@@ -21,7 +21,7 @@ angular.module('drivedb', [])
 		const CLIENT_ID = '105228524875.apps.googleusercontent.com';
 		const SCOPES = 'https://www.googleapis.com/auth/drive.install https://www.googleapis.com/auth/drive.file';
 		const MIME_TYPE = 'application/vnd.a-grade-sheet.course+json';
-		const AUTH_SERVER_URL = "https://a-grade-sheet.herokuapp.com/a-grade-sheet-auth";
+		const AUTH_SERVER_URL = "/authEndpoint";
 		
 		function trimFileData(item) {
 			if (!item.editable || item.labels.trashed || item.mimeType != MIME_TYPE) {
@@ -35,6 +35,22 @@ angular.module('drivedb', [])
 				lastModified: item.modifiedDate
 			}
 		}
+		function parseFileBody(data) {
+			data.sheets = data.sheets.map(function(sheet) {
+				var fields = sheet.info.fields;
+				sheet.grades = sheet.grades.map(function(grade) {
+					var result = {};
+					for (var i = 0; i < grade.length; i++) {
+						if (grade[i]) {
+							result[fields[i]] = grade[i];
+						}
+					}
+					return result;
+				});
+				return sheet;
+			});
+			return data;
+		}
 		
 		// I guess Database should be storing an in-memory copy of some basic file metadata
 		// since list is going to be queried pretty often... and do callbacks for other stuff
@@ -47,29 +63,38 @@ angular.module('drivedb', [])
 					}
 				}
 			},
-			newFile: function(parentId, title, callback) {
+			newFile: function(options, callback) {
 				const boundary = 'less-than-3';
 				const delimiter = "\r\n--" + boundary + "\r\n";
 				const close_delim = "\r\n--" + boundary + "--";
+				
+				var title = options.title, file;
+				
+				if (options.file) {
+					file = options.file;
+					title = title || file.title;
+				} else {
+					file = JSON.stringify({
+						"application": "a-grade-sheet",
+						"version": "0.1",
+						"info": {
+							"name": title
+						}
+					});
+				}
 				
 				var metadata = {
 					"title": title,
 					"mimeType": MIME_TYPE
 				};
-				var base = {
-					"application": "a-grade-sheet",
-					"version": "0.1",
-					"info": {
-						"name": title
-					}
-				};
+				
 				var multipartRequestBody =  
 					delimiter +
 					'Content-Type: application/json\r\n\r\n' +
 					JSON.stringify(metadata) +
 					delimiter +
 					'Content-Type: ' + MIME_TYPE + '\r\n\r\n' +
-					JSON.stringify(base) +
+					file +
 					close_delim;
 				
 				$window.gapi.client.request({
@@ -129,6 +154,7 @@ angular.module('drivedb', [])
 						url: resp.downloadUrl,
 						headers: {"Authorization": "Bearer " + database.getAccessToken()}
 					}).success(function(data, status) {
+						data = parseFileBody(data);
 						database.list[index].sheets = data.sheets;
 						console.log("loadFile result", data, status);
 						if (callback) callback(data);
